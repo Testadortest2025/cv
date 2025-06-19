@@ -5,202 +5,508 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Augusto Medeiros - Quality Assurance</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             color: #333;
-            max-width: 800px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 20px;
+        }
+
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
         }
 
         .header {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: white;
-            padding: 20px;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .name { font-size: 2em; margin-bottom: 5px; }
-        .title { font-size: 1.2em; margin-bottom: 15px; }
-        .contact-info { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.03) 2px,
+                rgba(255,255,255,0.03) 4px
+            );
+            animation: float 20s linear infinite;
+        }
 
-        .section { margin-bottom: 25px; }
-        .section-title { 
-            font-size: 1.3em; 
-            color: #2c3e50; 
-            margin-bottom: 15px; 
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .name {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        .title {
+            font-size: 1.4em;
+            font-weight: 300;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #e74c3c;
+            border-radius: 2px;
         }
 
         .experience-item, .education-item {
-            margin-bottom: 15px;
-            padding: 10px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .job-title { font-weight: bold; color: #2c3e50; }
-        .company { color: #3498db; }
-        .period { color: #666; font-size: 0.9em; margin-bottom: 8px; }
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(52,152,219,0.1), transparent);
+            transition: width 0.3s ease;
+        }
 
-        .responsibilities { list-style: disc; margin-left: 20px; }
-        .responsibilities li { margin-bottom: 3px; }
+        .experience-item:hover::before {
+            width: 100%;
+        }
 
-        @media (max-width: 600px) {
-            .contact-info { flex-direction: column; align-items: center; }
+        .experience-item:hover, .education-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            font-weight: 500;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+
+        .period {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .responsibilities {
+            list-style: none;
+            padding: 0;
+        }
+
+        .responsibilities li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+        }
+
+        .responsibilities li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid #3498db;
+        }
+
+        .skill-category h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52,152,219,0.4);
+        }
+
+        .languages {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .language-item {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(231,76,60,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .language-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231,76,60,0.4);
+        }
+
+        .soft-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .soft-skill {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .soft-skill:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(155,89,182,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .name {
+                font-size: 2.2em;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .languages {
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .resume-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .header::before {
+                animation: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 class="name">AUGUSTO MEDEIROS</h1>
-        <h2 class="title">Quality Assurance Professional</h2>
-        <div class="contact-info">
-            <span>📧 cgmaugusto@gmail.com</span>
-            <span>📱 +55 81 99719-8932</span>
-            <span>📍 Recife, Brazil</span>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3 class="section-title">Professional Experience</h3>
-        
-        <div class="experience-item">
-            <div class="job-title">Quality Assurance Intern</div>
-            <div class="company">IC Tecnologia</div>
-            <div class="period">May 2025 – Present | Recife, Brazil</div>
-            <ul class="responsibilities">
-                <li>Execution of functional and automated tests on APIs using Postman</li>
-                <li>Bug identification and comprehensive documentation</li>
-                <li>Collaboration with development teams to optimize testing processes</li>
-            </ul>
+    <div class="resume-container">
+        <div class="header">
+            <div class="header-content">
+                <h1 class="name">AUGUSTO MEDEIROS</h1>
+                <h2 class="title">Quality Assurance Professional</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>cgmaugusto@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>+55 81 99719-8932</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <span>Recife, Brazil</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="experience-item">
-            <div class="job-title">Parliamentary Advisor</div>
-            <div class="company">City Council</div>
-            <div class="period">Apr 2023 – May 2024 | Recife, Brazil</div>
-            <ul class="responsibilities">
-                <li>Schedule management and document organization</li>
-                <li>Public service coordination and stakeholder articulation</li>
-                <li>Administrative support for legislative processes</li>
-            </ul>
-        </div>
+        <div class="content">
+            <div class="section">
+                <h3 class="section-title">Professional Experience</h3>
+                
+                <div class="experience-item">
+                    <div class="job-title">Quality Assurance Intern</div>
+                    <div class="company">IC Tecnologia</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>May 2025 – Present | Recife, Brazil</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Execution of functional and automated tests on APIs using Postman</li>
+                        <li>Bug identification and comprehensive documentation</li>
+                        <li>Collaboration with development teams to optimize testing processes</li>
+                    </ul>
+                </div>
 
-        <div class="experience-item">
-            <div class="job-title">Registration Agent</div>
-            <div class="company">Chapéu de Palha Program</div>
-            <div class="period">2021 – 2023 | Recife, Brazil</div>
-            <ul class="responsibilities">
-                <li>Analysis of documents and criteria for rural workers' registration</li>
-                <li>In-person service delivery in remote regions</li>
-                <li>Data validation and compliance verification</li>
-            </ul>
-        </div>
+                <div class="experience-item">
+                    <div class="job-title">Parliamentary Advisor</div>
+                    <div class="company">City Council</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>Apr 2023 – May 2024 | Recife, Brazil</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Schedule management and document organization</li>
+                        <li>Public service coordination and stakeholder articulation</li>
+                        <li>Administrative support for legislative processes</li>
+                    </ul>
+                </div>
 
-        <div class="experience-item">
-            <div class="job-title">Commercial Manager</div>
-            <div class="company">Donna Coxita</div>
-            <div class="period">2019 – 2020 | Recife, Brazil</div>
-            <ul class="responsibilities">
-                <li>Team management, cash register operations, and inventory control</li>
-                <li>Customer service excellence and experience optimization</li>
-                <li>Internal process improvement and operational efficiency</li>
-            </ul>
-        </div>
+                <div class="experience-item">
+                    <div class="job-title">Registration Agent</div>
+                    <div class="company">Chapéu de Palha Program</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>2021 – 2023 | Recife, Brazil</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Analysis of documents and criteria for rural workers' registration</li>
+                        <li>In-person service delivery in remote regions</li>
+                        <li>Data validation and compliance verification</li>
+                    </ul>
+                </div>
 
-        <div class="experience-item">
-            <div class="job-title">Cultural and Educational Mediator</div>
-            <div class="company">Pernambuco State Museum / Kahal Zur Israel</div>
-            <div class="period">2015 – 2018 | Recife, Brazil</div>
-            <ul class="responsibilities">
-                <li>Guided tours and educational services for public and schools</li>
-                <li>Historical research and exhibition support</li>
-                <li>Conflict mediation and adaptive communication strategies</li>
-            </ul>
-        </div>
+                <div class="experience-item">
+                    <div class="job-title">Commercial Manager</div>
+                    <div class="company">Donna Coxita</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>2019 – 2020 | Recife, Brazil</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Team management, cash register operations, and inventory control</li>
+                        <li>Customer service excellence and experience optimization</li>
+                        <li>Internal process improvement and operational efficiency</li>
+                    </ul>
+                </div>
 
-        <div class="experience-item">
-            <div class="job-title">Cultural and Educational Mediator</div>
-            <div class="company">Pernambuco State Museum</div>
-            <div class="period">2014 – 2015 | Recife, Brazil</div>
-            <ul class="responsibilities">
-                <li>Guided tours for rotating exhibitions</li>
-                <li>Conflict resolution and adapted communication for diverse audiences</li>
-            </ul>
-        </div>
-    </div>
+                <div class="experience-item">
+                    <div class="job-title">Cultural and Educational Mediator</div>
+                    <div class="company">Pernambuco State Museum / Kahal Zur Israel</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>2015 – 2018 | Recife, Brazil</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Guided tours and educational services for public and schools</li>
+                        <li>Historical research and exhibition support</li>
+                        <li>Conflict mediation and adaptive communication strategies</li>
+                    </ul>
+                </div>
 
-    <div class="section">
-        <h3 class="section-title">Education</h3>
-        
-        <div class="education-item">
-            <div class="job-title">Associate Degree in Systems Analysis and Development</div>
-            <div class="company">UNINASSAU – Maurício de Nassau University Center</div>
-            <div class="period">Feb 2025 – Ongoing</div>
-        </div>
+                <div class="experience-item">
+                    <div class="job-title">Cultural and Educational Mediator</div>
+                    <div class="company">Pernambuco State Museum</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>2014 – 2015 | Recife, Brazil</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Guided tours for rotating exhibitions</li>
+                        <li>Conflict resolution and adapted communication for diverse audiences</li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="education-item">
-            <div class="job-title">Bachelor's Degree in History</div>
-            <div class="company">Federal University of Pernambuco (UFPE)</div>
-            <div class="period">2014 – 2017 | Incomplete</div>
-        </div>
-    </div>
+            <div class="section">
+                <h3 class="section-title">Education</h3>
+                
+                <div class="education-item">
+                    <div class="job-title">Associate Degree in Systems Analysis and Development</div>
+                    <div class="company">UNINASSAU – Maurício de Nassau University Center</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>Feb 2025 – Ongoing</span>
+                    </div>
+                </div>
 
-    <div class="section">
-        <h3 class="section-title">Technical Skills</h3>
-        
-        <div class="experience-item">
-            <div class="job-title">Development & Testing</div>
-            <ul class="responsibilities">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>Cypress</li>
-                <li>Postman</li>
-                <li>Git</li>
-                <li>Dev Tools</li>
-            </ul>
-        </div>
+                <div class="education-item">
+                    <div class="job-title">Bachelor's Degree in History</div>
+                    <div class="company">Federal University of Pernambuco (UFPE)</div>
+                    <div class="period">
+                        <span>📅</span>
+                        <span>2014 – 2017 | Incomplete</span>
+                    </div>
+                </div>
+            </div>
 
-        <div class="experience-item">
-            <div class="job-title">Quality Assurance</div>
-            <ul class="responsibilities">
-                <li>Manual Testing</li>
-                <li>Automated Testing</li>
-                <li>Test Planning</li>
-                <li>Bug Reporting</li>
-                <li>REST APIs</li>
-                <li>Kanban</li>
-            </ul>
-        </div>
-    </div>
+            <div class="section">
+                <h3 class="section-title">Technical Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Development & Testing</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML</span>
+                            <span class="skill-tag">CSS</span>
+                            <span class="skill-tag">Cypress</span>
+                            <span class="skill-tag">Postman</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Dev Tools</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Quality Assurance</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Manual Testing</span>
+                            <span class="skill-tag">Automated Testing</span>
+                            <span class="skill-tag">Test Planning</span>
+                            <span class="skill-tag">Bug Reporting</span>
+                            <span class="skill-tag">REST APIs</span>
+                            <span class="skill-tag">Kanban</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="section">
-        <h3 class="section-title">Languages</h3>
-        
-        <div class="experience-item">
-            <div class="job-title">English</div>
-            <div class="company">Advanced</div>
-        </div>
+            <div class="section">
+                <h3 class="section-title">Languages</h3>
+                <div class="languages">
+                    <div class="language-item">
+                        <strong>English:</strong> Advanced
+                    </div>
+                    <div class="language-item">
+                        <strong>Portuguese:</strong> Native
+                    </div>
+                </div>
+            </div>
 
-        <div class="experience-item">
-            <div class="job-title">Portuguese</div>
-            <div class="company">Native</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <h3 class="section-title">Soft Skills</h3>
-        
-        <div class="experience-item">
-            <ul class="responsibilities">
-                <li>Communication</li>
-                <li>Teamwork</li>
-                <li>Conflict Resolution</li>
-                <li>Interpersonal Skills</li>
-                <li>Multicultural Experience</li>
-            </ul>
+            <div class="section">
+                <h3 class="section-title">Soft Skills</h3>
+                <div class="soft-skills">
+                    <span class="soft-skill">Communication</span>
+                    <span class="soft-skill">Teamwork</span>
+                    <span class="soft-skill">Conflict Resolution</span>
+                    <span class="soft-skill">Interpersonal Skills</span>
+                    <span class="soft-skill">Multicultural Experience</span>
+                </div>
+            </div>
         </div>
     </div>
 </body>
